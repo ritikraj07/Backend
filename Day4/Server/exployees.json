@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Ritik"
+  },
+  {
+    "name": "king",
+    "country": "India",
+    "id": 3
+  },
+  {
+    "name": "king of Mirzapur",
+    "country": "USA",
+    "id": 4
+  },
+  {
+    "name": "king of Mirzapur",
+    "country": "USA",
+    "id": 5
+  }
+]
