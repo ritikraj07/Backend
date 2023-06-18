@@ -1,6 +1,6 @@
 let { Router } = require('express');
 const User = require('../Schema/user.model');
-const { Register_User, Login, Make_Attendance, Get_User } = require('../Controller/user.controller');
+const { Register_User, Login, Make_Attendance, Get_User, Get_User_with_Admin_Id } = require('../Controller/user.controller');
 let UserRoute = Router()
 
 UserRoute.get('/:id', async (req, res) => {
@@ -51,10 +51,9 @@ UserRoute.get('/login', async (req, res) => {
 } )
 
 UserRoute.post('/attend', async (req, res) => {
-        // console.log(req.body)
     try {
-        let { _id, admin_id, date, value } = req.body;
-        let result = await Make_Attendance(_id, admin_id, date, value)
+        let { _id, date, value } = req.body;
+        let result = await Make_Attendance(_id, date, value)
         res.status(200).send({
             status: true,
             data: result
@@ -66,6 +65,24 @@ UserRoute.post('/attend', async (req, res) => {
         })
     }
 })
+
+UserRoute.get('/all/:admin_id', async (req, res) => {
+    try {
+        let admin_id = req.params.admin_id;
+        let users = await Get_User_with_Admin_Id(admin_id);
+        res.status(200).send({
+            status: true,
+            data: users
+        })
+     } catch (err) {
+        res.status(200).send({
+            status: false,
+            data: err
+        })
+    }
+} )
+
+
 
 
 module.exports = UserRoute;

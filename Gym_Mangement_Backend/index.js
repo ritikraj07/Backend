@@ -25,3 +25,6 @@ ConnectDatabase()
             console.log("Server started");
         })
     })
+
+
+// https://nice-erin-rattlesnake-yoke.cyclic.app/

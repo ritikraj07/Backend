@@ -1,9 +1,6 @@
 const User = require("../Schema/user.model");
 
 async function Register_User(user) {
-//     if (User.findOne({ email: user.email })) {
-//         throw Error("User already have account")
-//     }
     return await User.create(user)
 }
 async function Get_User(id) {
@@ -16,7 +13,7 @@ async function Get_User(id) {
 
 
 async function Get_User_with_Admin_Id(id) {
-    let user = await User.findOne({ admin_id: id })
+    let user = await User.find({ admin_id: id })
     return user;
 }
 async function Get_AttendanceByDate(user_id, admin_id, date, value) {
@@ -35,8 +32,8 @@ async function Get_AttendanceByDate(user_id, admin_id, date, value) {
 }
 
 
-async function Make_Attendance(user_id, admin_id, date, value) {
-    let user = await User.findOne({ $and: [{ _id: user_id }, { admin_id: admin_id }] })
+async function Make_Attendance(user_id, date, value) {
+    let user = await User.findOne({_id: user_id })
     user = user.toJSON();
 
     let attendence_array = user.attendence;
