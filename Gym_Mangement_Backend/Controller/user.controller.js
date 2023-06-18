@@ -1,9 +1,9 @@
 const User = require("../Schema/user.model");
 
 async function Register_User(user) {
-    if (User.findOne({ email: user.email })) {
-        throw Error("User already have account")
-    }
+//     if (User.findOne({ email: user.email })) {
+//         throw Error("User already have account")
+//     }
     return await User.create(user)
 }
 async function Get_User(id) {
