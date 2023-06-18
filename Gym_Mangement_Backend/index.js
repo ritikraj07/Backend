@@ -12,7 +12,7 @@ app.use(cors())
 app.use(morgan('tiny'))
 
 app.get('/', (req, res) => {
-    res.send("all ok")
+    res.send("9:29")
 })
 
 app.use('/admin', AdminRoute)
