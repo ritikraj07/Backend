@@ -16,8 +16,8 @@ async function Get_User_with_Admin_Id(id) {
     let user = await User.find({ admin_id: id })
     return user;
 }
-async function Get_AttendanceByDate(user_id, admin_id, date, value) {
-    let user = await User.findOne({ $and: [{ _id: user_id }, { admin_id: admin_id }] })
+async function Get_AttendanceByDate(user_id, date) {
+    let user = await User.findOne({ _id: user_id})
     user = user.toJSON();
     let attendence_array = user.attendence;
     let check = true;
@@ -27,8 +27,12 @@ async function Get_AttendanceByDate(user_id, admin_id, date, value) {
         }
     })
     if (check) {
-        attendence_array = [...attendence_array, { date: date, present: value }]
+        attendence_array = [...attendence_array, { date: date, present: false }]
     }
+
+    user = { ...user, attendence: attendence_array }
+    await User.findByIdAndUpdate({ _id: user._id }, user);
+    return { date: date, present: false };
 }
 
 
@@ -54,8 +58,6 @@ async function Make_Attendance(user_id, date, value) {
         date: date,
         present: value
     }
-
-
     
 }
 
@@ -73,6 +75,6 @@ async function Login(email, password) {
 
 
 
-module.exports = {Register_User, Get_User, Get_User_with_Admin_Id, Login, Make_Attendance}
+module.exports = {Register_User, Get_User, Get_User_with_Admin_Id, Login, Make_Attendance, Get_AttendanceByDate}
 
 

@@ -1,6 +1,6 @@
 let { Router } = require('express');
 const User = require('../Schema/user.model');
-const { Register_User, Login, Make_Attendance, Get_User, Get_User_with_Admin_Id } = require('../Controller/user.controller');
+const { Register_User, Login, Make_Attendance, Get_User, Get_User_with_Admin_Id, Get_AttendanceByDate } = require('../Controller/user.controller');
 let UserRoute = Router()
 
 UserRoute.get('/:id', async (req, res) => {
@@ -34,9 +34,9 @@ UserRoute.post('/register', async (req, res) => {
         })
     }
 })
-UserRoute.get('/login', async (req, res) => {
+UserRoute.post('/login', async (req, res) => {
     try { 
-        let { email, password } = req.query
+        let { email, password } = req.body
         let user = await Login(email, password);
         res.status(200).send({
             status: true,
@@ -59,6 +59,23 @@ UserRoute.post('/attend', async (req, res) => {
             data: result
         })
      } catch (err) {
+        res.status(200).send({
+            status: false,
+            data: err
+        })
+    }
+})
+
+UserRoute.post('/getAttendance', async (req, res) => {
+        let { _id, date } = req.body;
+        console.log(_id, date)
+    try {
+        let result = await Get_AttendanceByDate(_id, date)
+        res.status(200).send({
+            status: true,
+            data: result
+        })
+    } catch (err) {
         res.status(200).send({
             status: false,
             data: err
