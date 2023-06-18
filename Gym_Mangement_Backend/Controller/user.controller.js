@@ -18,7 +18,7 @@ async function Get_User_with_Admin_Id(id) {
 }
 async function Get_AttendanceByDate(user_id, date) {
     let user = await User.findOne({ _id: user_id})
-    user = user.toJSON();
+    // user = user.toJSON();
     let attendence_array = user.attendence;
     let check = true;
     attendence_array.map((d) => {
@@ -38,7 +38,7 @@ async function Get_AttendanceByDate(user_id, date) {
 
 async function Make_Attendance(user_id, date, value) {
     let user = await User.findOne({_id: user_id })
-    user = user.toJSON();
+    // user = user.toJSON();
 
     let attendence_array = user.attendence;
     let check = true;
