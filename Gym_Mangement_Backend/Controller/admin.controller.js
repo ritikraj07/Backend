@@ -5,10 +5,11 @@ async function Register_Admin(email, password) {
     if (alreadyExits) {
         throw Error("You have already a account")
     }
-    return await Admin.create({
+    let admin = await Admin.create({
         email: email,
         password: password
     })
+    return admin;
 }
 
 async function Get_Admin(email, password) {
