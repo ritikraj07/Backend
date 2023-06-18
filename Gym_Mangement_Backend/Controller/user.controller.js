@@ -17,28 +17,35 @@ async function Get_User_with_Admin_Id(id) {
     return user;
 }
 async function Get_AttendanceByDate(user_id, date) {
-    let user = await User.findOne({ _id: user_id})
-    // user = user.toJSON();
+    
+    let user = await User.findById(user_id)
+    user = user.toJSON();
     let attendence_array = user.attendence;
     let check = true;
+    let DATA = { date: date, present: false }
     attendence_array.map((d) => {
         if (d.date === date) {
+            DATA = d
+            check = false;
             return d;
         }
     })
     if (check) {
         attendence_array = [...attendence_array, { date: date, present: false }]
+    } else {
+        return DATA;
     }
 
     user = { ...user, attendence: attendence_array }
-    await User.findByIdAndUpdate({ _id: user._id }, user);
+    
+    await User.findByIdAndUpdate(user_id ,user)
     return { date: date, present: false };
 }
 
 
 async function Make_Attendance(user_id, date, value) {
     let user = await User.findOne({_id: user_id })
-    // user = user.toJSON();
+    user = user.toJSON();
 
     let attendence_array = user.attendence;
     let check = true;
@@ -52,7 +59,7 @@ async function Make_Attendance(user_id, date, value) {
         attendence_array = [...attendence_array,{date:date, present: value} ]
     }
     user = { ...user, attendence: attendence_array }
-    await User.findByIdAndUpdate({ _id: user._id }, user);
+    await User.findByIdAndUpdate(user._id, user);
 
     return {
         date: date,

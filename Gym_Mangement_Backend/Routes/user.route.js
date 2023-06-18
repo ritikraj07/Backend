@@ -67,14 +67,15 @@ UserRoute.post('/attend', async (req, res) => {
 })
 
 UserRoute.post('/getAttendance', async (req, res) => {
-        let { _id, date } = req.body;
-        
+        console.log(req.body)
     try {
+        let { _id, date } = req.body;
         let result = await Get_AttendanceByDate(_id, date)
         res.status(200).send({
             status: true,
             data: result
         })
+        
     } catch (err) {
         res.status(200).send({
             status: false,
