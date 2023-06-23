@@ -80,6 +80,11 @@ async function Login(email, password) {
     return user;
 }
 
+async function All_User_Same_Admin(admin_id, date) {
+    let users = await Get_User_with_Admin_Id()
+}
+
+
 
 
 module.exports = {Register_User, Get_User, Get_User_with_Admin_Id, Login, Make_Attendance, Get_AttendanceByDate}
