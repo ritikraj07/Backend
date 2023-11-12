@@ -13,7 +13,8 @@ function GenerateToken(user) {
 }
 
 function VerifyToken(token) {
-    const payload = jwt.verify(token, config.JWT_SECRET)
+    // change here if you are getting any error 
+    const payload = jwt.verify(token, config.JWT_SECRET, { expiresIn: '1h' })
     return payload
 }
 
